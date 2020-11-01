@@ -1,7 +1,9 @@
+#libraries used in this code:
 import time
 import pandas as pd
 import numpy as np
 
+# creating a dictionary for csv files
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
@@ -258,6 +260,23 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def raw_data(df):
+    """
+    Asks user is they want to see raw data
+
+    Returns:
+        If Yes: 5 lines of raw data
+        If No: None
+    """ 
+    while True:
+        raw_data_choice = input('\nWould you like to see 5 lines of raw data? [Yes, No]:\n').lower()
+        if raw_data_choice.lower() == 'no':
+            break
+        elif raw_data_choice.lower() == 'yes':
+            print(df.sample(n=5))
+        else:
+            print('Not a valid choice, please try again.')
+
 
 def main():
     while True:
@@ -268,6 +287,7 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
+        raw_data(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
